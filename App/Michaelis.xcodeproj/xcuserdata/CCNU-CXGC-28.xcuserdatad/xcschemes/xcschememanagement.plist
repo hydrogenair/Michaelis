@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Copy of MichaelisWidgetsExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Michaelis.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>MichaelisWidgetsExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>3AD405602C54D94500BE34AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AD405702C54D94800BE34AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AD4057A2C54D94800BE34AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6357215F2C943B3C004D6BA0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
