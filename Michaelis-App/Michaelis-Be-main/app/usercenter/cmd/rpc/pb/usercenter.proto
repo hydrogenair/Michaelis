@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+
+message User{
+  int64 id = 1;
+  string email = 2;
+  string nickname = 3;
+  string gender = 4;
+  int64 age = 5;
+  int64 identity = 6;
+}
+
+message UserAuth{
+  int64 id = 1;
+  int64 userId = 2;
+  string authType = 3;
+  string authKey  = 4;
+}
+
+
+message RegisterReq{
+  string email = 1;
+  string password = 2;
+  string verification = 3;
+}
+
+message RegisterResp{
+  string accessToken = 1;
+  int64 accessExpire = 2;
+  int64 refreshAfter = 3;
+}
+
+message VerificationReq{
+  string email = 1;
+}
+
+message VerificationResp{
+  string verification = 1;
+}
+
+message LoginReq{
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResp{
+  string accessToken = 1;
+  int64 accessExpire = 2;
+  int64 refreshAfter = 3;
+}
+
+
+message UserInfoReq{
+  int64 id = 1;
+}
+
+
+message UserInfoResp{
+  User user = 1;
+}
+
+
+
+
+
+message GenerateTokenReq{
+  int64 userId = 1;
+  int64 identity = 2;
+}
+
+message GenerateTokenResp{
+  string accessToken = 1;
+  int64 accessExpire = 2;
+  int64 refreshAfter = 3;
+}
+
+message UpdateInfoReq{
+  int64 id = 1;
+  string NickName = 2;
+  string Gender = 3;
+  int64 Age = 4;
+}
+
+message UpdateInfoResp{
+  User user = 1;
+}
+
+message UpdatePSWReq{
+  int64 id = 1;
+  string oldpassword = 2;
+  string newpassword = 3;
+  string verificationcode=4;
+}
+
+message UpdatePSWResp{
+}
+
+message AuthReq{
+  int64 id = 1;
+}
+message AuthResp{
+  User user  = 1;
+}
+service UserCenter{
+  rpc login(LoginReq)returns (LoginResp);
+  rpc register(RegisterReq) returns(RegisterResp);
+  rpc getVerification(VerificationReq)returns(VerificationResp);
+  rpc getUserInfo(UserInfoReq)returns(UserInfoResp);
+  rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
+  rpc updateInfo(UpdateInfoReq)returns(UpdateInfoResp);
+  rpc updatePSW(UpdatePSWReq)returns(UpdatePSWResp);
+  rpc giveUserAuth(AuthReq)returns(AuthResp);
+}

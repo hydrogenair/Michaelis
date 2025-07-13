@@ -1,0 +1,164 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "联系表",
+    "description": "志愿者与用户关联",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "connectioncenter/v1/add": {
+      "post": {
+        "summary": "添加联系",
+        "operationId": "addConnection",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AddConnectionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddConnectionRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "connection"
+        ]
+      }
+    },
+    "connectioncenter/v1/check": {
+      "get": {
+        "summary": "查看联系人",
+        "operationId": "checkConnection",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetConnectionResponse"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "connection"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddConnectionRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "AddConnectionRequest",
+      "required": [
+        "userId"
+      ]
+    },
+    "AddConnectionResponse": {
+      "type": "object",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/Connection"
+        }
+      },
+      "title": "AddConnectionResponse",
+      "required": [
+        "connection"
+      ]
+    },
+    "Connection": {
+      "type": "object",
+      "properties": {
+        "volunteerId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Connection",
+      "required": [
+        "volunteerId",
+        "userId"
+      ]
+    },
+    "GetConnectionRequest": {
+      "type": "object",
+      "title": "GetConnectionRequest"
+    },
+    "GetConnectionResponse": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }
+      },
+      "title": "GetConnectionResponse",
+      "required": [
+        "userInfo"
+      ]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfo",
+      "required": [
+        "userId",
+        "userName",
+        "avatar"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

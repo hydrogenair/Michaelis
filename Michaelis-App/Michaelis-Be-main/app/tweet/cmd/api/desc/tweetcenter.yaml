@@ -1,0 +1,160 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "推文中心",
+    "description": "用户发布推文",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "tweetcenter/v1/tweet": {
+      "post": {
+        "summary": "发送推文",
+        "operationId": "postTweet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/TweetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TweetRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "tweeet"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Tweet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "publisherId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "Tweet",
+      "required": [
+        "id",
+        "publisherId",
+        "content"
+      ]
+    },
+    "TweetImage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tweetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "TweetImage",
+      "required": [
+        "id",
+        "tweetId",
+        "url"
+      ]
+    },
+    "TweetImageRequest": {
+      "type": "object",
+      "properties": {
+        "tweetId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "TweetImageRequest",
+      "required": [
+        "tweetId",
+        "url"
+      ]
+    },
+    "TweetImageResponse": {
+      "type": "object",
+      "properties": {
+        "tweetImage": {
+          "$ref": "#/definitions/TweetImage"
+        }
+      },
+      "title": "TweetImageResponse",
+      "required": [
+        "tweetImage"
+      ]
+    },
+    "TweetRequest": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "TweetRequest",
+      "required": [
+        "content"
+      ]
+    },
+    "TweetResponse": {
+      "type": "object",
+      "properties": {
+        "tweet": {
+          "$ref": "#/definitions/Tweet"
+        }
+      },
+      "title": "TweetResponse",
+      "required": [
+        "tweet"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

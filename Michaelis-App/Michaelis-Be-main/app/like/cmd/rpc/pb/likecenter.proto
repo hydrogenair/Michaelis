@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+
+
+message LikeRequest{
+  string Type = 1;
+  int64 OutId = 2;
+  int64 UserId = 3;
+}
+
+message LikeResponse{
+  string Type = 1;
+  int64 OutId = 2;
+  int64 UserId = 3;
+}
+
+message CheckLikeRequest{
+  string Type = 1;
+  int64 OutId = 2;
+  int64 UserId = 3;
+}
+
+message CheckLikeResponse{
+  bool Like = 1;
+}
+
+
+message CancelLikeRequest{
+  string Type = 2;
+  int64 OutId = 3;
+  int64 UserId = 4;
+}
+
+message CancelLikeResponse{
+  string Type = 1;
+  int64 OutId = 2;
+  int64 UserId = 3;
+}
+
+message GetLikesRequest{
+  string Type = 1;
+  int64 OutId = 2;
+}
+message GetLikesResponse{
+  int64 LikeSum = 1;
+}
+
+service likecenter{
+  rpc postLike (LikeRequest)returns(LikeResponse);
+  rpc checkLike (CheckLikeRequest)returns(CheckLikeResponse);
+  rpc cancelLike(CancelLikeRequest)returns(CancelLikeResponse);
+  rpc getLikes(GetLikesRequest)returns(GetLikesResponse);
+}

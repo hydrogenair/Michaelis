@@ -1,0 +1,295 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "图片服务",
+    "description": "所有的图片操作",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "imagecenter/v1/image": {
+      "post": {
+        "summary": "发布图片",
+        "operationId": "uploadImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UploadImageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadImageRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "image"
+        ]
+      }
+    },
+    "imagecenter/v1/image/{id}": {
+      "get": {
+        "summary": "获取某个图片的详细信息",
+        "operationId": "getImageDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetImageDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "image"
+        ]
+      },
+      "delete": {
+        "summary": "删除某个图片",
+        "operationId": "deleteImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteImageReponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteImageRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "image"
+        ]
+      }
+    },
+    "imagecenter/v1/image/{type}/{outid}": {
+      "get": {
+        "summary": "获取某类的全部图片",
+        "operationId": "getAllImages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAllImagesResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "outid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "image"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "DeleteImageReponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteImageReponse",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteImageRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteImageRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "GetAllImagesRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "outId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetAllImagesRequest",
+      "required": [
+        "type",
+        "outId"
+      ]
+    },
+    "GetAllImagesResponse": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        }
+      },
+      "title": "GetAllImagesResponse",
+      "required": [
+        "image"
+      ]
+    },
+    "GetImageDetailRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetImageDetailRequest",
+      "required": [
+        "id"
+      ]
+    },
+    "GetImageDetailResponse": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/Image"
+        }
+      },
+      "title": "GetImageDetailResponse",
+      "required": [
+        "image"
+      ]
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "outId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "Image",
+      "required": [
+        "id",
+        "type",
+        "outId",
+        "url"
+      ]
+    },
+    "UploadImageRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "outId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "UploadImageRequest",
+      "required": [
+        "type",
+        "outId",
+        "url"
+      ]
+    },
+    "UploadImageResponse": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/Image"
+        }
+      },
+      "title": "UploadImageResponse",
+      "required": [
+        "image"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

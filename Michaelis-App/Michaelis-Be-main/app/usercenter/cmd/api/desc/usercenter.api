@@ -1,0 +1,62 @@
+syntax = "v1"
+
+info(
+	title: "用户中心"
+	desc: "用户中心服务"
+	author: "Barry"
+	email: "1903180340@qq.com"
+	version: "v1"
+)
+
+import (
+	"user/user.api"
+)
+
+@server (
+	prefix :usercenter/v1
+	group :user
+)
+
+service usercenter{
+	@doc "register"
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
+	
+	@doc "verfication"
+	@handler verify
+	post /user/verify (VerificationReq) returns(VerfificationResp)
+	
+	@doc "login"
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
+}
+
+@server (
+	prefix: usercenter/v1
+	group : user
+	jwt : JwtAuth
+)
+service usercenter{
+	@doc "get user info"
+	@handler detail
+	get /user/detail (UserInfoReq) returns (UserInfoResp)
+	
+	@doc "update user info"
+	@handler updateInfo
+	post /user/detail (UpdateInfoReq) returns (UpdateInfoResp)
+	
+	@doc "update user psw"
+	@handler updatePSW
+	post /user/psw (UpdatePSWReq)returns(UpdatePSWResp)
+}
+
+@server (
+	prefix: usercenter/v1
+	group : user
+)
+
+service usercenter{
+	@doc "update user identity"
+	@handler updateIdentity
+	post /auth/identity(UpdateIdentityReq)returns(UpdateIdentityResp)
+}

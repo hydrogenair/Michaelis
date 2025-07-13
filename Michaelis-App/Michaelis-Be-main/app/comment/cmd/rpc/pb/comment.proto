@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+message Comment{
+  int64 CommentId  =1 ;
+  int64 PublisherId = 2;
+  string PublisherName = 3;
+  string PublisherAvatar = 4;
+  string Type = 5;
+  string Content = 6;
+  int64 LikeNum = 7;
+  int64 ReplyNum = 8;
+  int64 OutId = 9;
+  string Time = 10;
+}
+
+message CommentRequest{
+  int64 PublisherId = 1;
+  int64 OutId = 2;
+  string Type = 3;
+  string Content = 4;
+}
+
+message CommentResponse{
+  Comment comment = 1;
+}
+
+message GetCommentRequest{
+  string Type = 1;
+  int64 OutId = 2;
+}
+
+message GetCommentResponse{
+  repeated Comment comment = 1;
+}
+
+message DeleteCommentRequest{
+  int64 CommentId = 1;
+  int64 PublisherId =2;
+}
+
+message DeleteCommentResponse{
+  int64 CommentId = 1;
+}
+
+
+service CommentCenter{
+  rpc postComment(CommentRequest)returns(CommentResponse);
+  rpc getComments(GetCommentRequest)returns(GetCommentResponse);
+  rpc deleteComment(DeleteCommentRequest)returns(DeleteCommentResponse);
+}

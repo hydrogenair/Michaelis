@@ -1,0 +1,186 @@
+syntax = "v1"
+
+info(
+    title: "帖子实例"
+    desc: "帖子实例"
+    author: "Barry"
+    email: "wyxnatural@gmail.com"
+    version: "v1"
+)
+
+
+
+type Post{
+    PostId int64 `json:"postId"`
+    PublisherId int64 `json:"publisherId"`
+    PublisherName string `json:"publisherName"`
+    PublisherAvatar string `json:"publisherAvatar"`
+    Category string `json:"category"`
+    Content string `json:"content"`
+    ViewNum int64 `json:"viewNum"`
+    LikeNum int64 `json:"likeNum"`
+//    IfLike bool `json:"ifLike"`
+    CommentNum int64 `json:"commentNum"`
+    PostImage[] PostImage `json:"postImage"`
+    Time string `json:"time"`
+}
+
+type PostComment{
+    CommentId int64 `json:"commentId"`
+    PublisherId int64 `json:"publisherId"`
+    PubliserName string `json:"publiserName"`
+    PublisherAvatar string `json:"publisherAvatar"`
+    PostId int64 `json:"postId"`
+    CommentImage[] CommentImage `json:"commentImage"`
+    Content string `json:"content"`
+    Time string    `json:"time"`
+}
+
+type PostImage{
+    PostId int64 `json:"postId"`
+    ImageId int64 `json:"imageId"`
+    Url string `json:"url"`
+}
+
+type CommentImage{
+    CommentId int64 `json:"commentId"`
+    ImageId int64 `json:"imageId"`
+    Url string `json:"url"`
+}
+
+type (
+    PostRequest{
+//        PublisherId int64 `json:"publisherId"`
+        Category string `json:"category"`
+        Content string `json:"content"`
+    }
+    PostResponse{
+        Post Post `json:"post"`
+    }
+)
+
+type (
+    GetPostRequest{
+    }
+    GetPostResponse{
+        Post []Post `json:"post"`
+    }
+)
+
+type (
+    GetCategoryPostRequest{
+        Category string `path:"category"`
+    }
+    GetCategoryPostResponse{
+        Post []Post `json:"post"`
+    }
+)
+
+
+type (
+    PersonalPostRequest{
+        Category string `path:"category"`
+    }
+    PersonalPostResponse{
+        Post []Post `json:"post"`
+    }
+)
+
+
+type (
+    GetDetailRequest{
+        PostId int64 `path:"postId"`
+    }
+    GetDetailResponse{
+        Post Post `json:"post"`
+    }
+)
+
+type (
+    DeletePostRequest{
+      PostId int64 `path:"postId"`
+    }
+    DeletePostResponse{
+      PostId int64 `json:"postId"`
+    }
+)
+
+
+type (
+    CommentPostRequest{
+        PostId int64 `json:"postId"`
+        Content string `json:"content"`
+    }
+    CommentPostResponse{
+        PostComment PostComment `json:"postComment"`
+    }
+)
+
+
+type (
+    GetCommentsRequst{
+        PostId int64 `path:"postId"`
+    }
+    GetCommentsResponse{
+        PostComment []PostComment `json:"postComment"`
+    }
+)
+
+type (
+    DeleteCommentRequest{
+        CommentId int64 `path:"commentId"`
+    }
+
+    DeleteCommentResponse{
+        CommentId int64 `path:"commentId"`
+    }
+)
+
+type (
+    UploadImageRequest{
+        PostId int64 `json:"postId"`
+        ImageUrl string `json:"imageUrl"`
+    }
+    UploadImageResponse{
+       PostImage PostImage `json:"postImage"`
+    }
+)
+
+
+type (
+    ViewPostRequest{
+        PostId int64 `json:"postId"`
+    }
+    ViewPostResponse{
+        PostId int64 `json:"postId"`
+    }
+)
+
+type (
+    LikePostRequest{
+        PostId int64 `json:"postId"`
+    }
+    LikePostResponse{
+        PostId int64 `json:"postId"`
+    }
+)
+
+
+type (
+    CancelLikeRequest{
+        PostId int64 `json:"postId"`
+    }
+    CancelLikeResponse{
+        PostId int64 `json:"postId"`
+    }
+)
+
+type (
+    IfLikeRequest{
+        PostId int64 `path:"postId"`
+    }
+    IfLikeResponse{
+        Like bool `json:"like"`
+    }
+)
+

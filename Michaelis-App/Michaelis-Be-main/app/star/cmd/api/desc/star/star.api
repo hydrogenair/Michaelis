@@ -1,0 +1,48 @@
+syntax = "v1"
+
+info(
+    title: "星球中心"
+    desc: "心情星球"
+    author: "Barry"
+    email: "wyxnatural@gmail.com"
+    version: "v1"
+)
+
+
+
+type (
+    EnterRequest{
+        StarId int64 `json:"starId"`
+    }
+    EnterResponse{
+        UserId int64 `json:"userId"`
+        StarNam string `json:"starNam"`
+    }
+)
+
+type (
+    MyStarsRequest{
+    }
+    MyStarsResponse{
+        Star []string `json:"star"`
+    }
+)
+
+type (
+    StarDetailRequest{
+        StarId int64   `path:"starId"`
+    }
+    StarDetailResponse{
+        Name string `json:"name"`
+        PeopleCount int `json:"peopleCount"`
+    }
+)
+
+type (
+    IfEnterRequest{
+        StarId int64    `path:"starId"`
+    }
+    IfEnterResponse{
+        Enter bool  `json:"enter"`
+    }
+)

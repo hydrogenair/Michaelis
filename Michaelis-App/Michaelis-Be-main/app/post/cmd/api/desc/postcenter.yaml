@@ -1,0 +1,907 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "发帖中心",
+    "description": "星球中的用户帖子",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "postcenter/v1/all_post": {
+      "get": {
+        "summary": "查看某人发布所有的帖子",
+        "operationId": "getPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostResponse"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post": {
+      "post": {
+        "summary": "发布帖子",
+        "operationId": "publishPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/comment": {
+      "post": {
+        "summary": "评论帖子",
+        "operationId": "commentPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CommentPostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CommentPostRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/comment/{commentId}": {
+      "delete": {
+        "summary": "删除帖子的评论",
+        "operationId": "deletePostComments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteCommentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteCommentRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/comment/{postId}": {
+      "get": {
+        "summary": "获取帖子的评论",
+        "operationId": "getPostComments",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCommentsResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/detail/{postId}": {
+      "get": {
+        "summary": "获取某个帖子的详细",
+        "operationId": "getPostDetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/like": {
+      "delete": {
+        "summary": "取消点赞",
+        "operationId": "cancelLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CancelLikeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelLikeRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      },
+      "post": {
+        "summary": "帖子点赞",
+        "operationId": "likePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LikePostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LikePostRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/like/{postId}": {
+      "get": {
+        "summary": "查看是否点赞",
+        "operationId": "ifLike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IfLikeResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/personal/{category}": {
+      "get": {
+        "summary": "获取某人某个话题下发布的帖子",
+        "operationId": "getPersonalCategoryPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PersonalPostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/view": {
+      "post": {
+        "summary": "帖子浏览量+1",
+        "operationId": "viewPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ViewPostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ViewPostRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/{category}": {
+      "get": {
+        "summary": "查看某话题下的所有帖子",
+        "operationId": "getCategoryPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCategoryPostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    },
+    "postcenter/v1/post/{postId}": {
+      "delete": {
+        "summary": "删除帖子",
+        "operationId": "deletePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeletePostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePostRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "posts"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CancelLikeRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CancelLikeRequest",
+      "required": [
+        "postId"
+      ]
+    },
+    "CancelLikeResponse": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CancelLikeResponse",
+      "required": [
+        "postId"
+      ]
+    },
+    "CommentImage": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "imageId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "CommentImage",
+      "required": [
+        "commentId",
+        "imageId",
+        "url"
+      ]
+    },
+    "CommentPostRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "CommentPostRequest",
+      "required": [
+        "postId",
+        "content"
+      ]
+    },
+    "CommentPostResponse": {
+      "type": "object",
+      "properties": {
+        "postComment": {
+          "$ref": "#/definitions/PostComment"
+        }
+      },
+      "title": "CommentPostResponse",
+      "required": [
+        "postComment"
+      ]
+    },
+    "DeleteCommentRequest": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteCommentRequest",
+      "required": [
+        "commentId"
+      ]
+    },
+    "DeleteCommentResponse": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteCommentResponse",
+      "required": [
+        "commentId"
+      ]
+    },
+    "DeletePostRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeletePostRequest",
+      "required": [
+        "postId"
+      ]
+    },
+    "DeletePostResponse": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeletePostResponse",
+      "required": [
+        "postId"
+      ]
+    },
+    "GetCategoryPostRequest": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        }
+      },
+      "title": "GetCategoryPostRequest",
+      "required": [
+        "category"
+      ]
+    },
+    "GetCategoryPostResponse": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          }
+        }
+      },
+      "title": "GetCategoryPostResponse",
+      "required": [
+        "post"
+      ]
+    },
+    "GetCommentsRequst": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetCommentsRequst",
+      "required": [
+        "postId"
+      ]
+    },
+    "GetCommentsResponse": {
+      "type": "object",
+      "properties": {
+        "postComment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostComment"
+          }
+        }
+      },
+      "title": "GetCommentsResponse",
+      "required": [
+        "postComment"
+      ]
+    },
+    "GetDetailRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetDetailRequest",
+      "required": [
+        "postId"
+      ]
+    },
+    "GetDetailResponse": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "$ref": "#/definitions/Post"
+        }
+      },
+      "title": "GetDetailResponse",
+      "required": [
+        "post"
+      ]
+    },
+    "GetPostRequest": {
+      "type": "object",
+      "title": "GetPostRequest"
+    },
+    "GetPostResponse": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          }
+        }
+      },
+      "title": "GetPostResponse",
+      "required": [
+        "post"
+      ]
+    },
+    "IfLikeRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "IfLikeRequest",
+      "required": [
+        "postId"
+      ]
+    },
+    "IfLikeResponse": {
+      "type": "object",
+      "properties": {
+        "like": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "IfLikeResponse",
+      "required": [
+        "like"
+      ]
+    },
+    "LikePostRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LikePostRequest",
+      "required": [
+        "postId"
+      ]
+    },
+    "LikePostResponse": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LikePostResponse",
+      "required": [
+        "postId"
+      ]
+    },
+    "PersonalPostRequest": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        }
+      },
+      "title": "PersonalPostRequest",
+      "required": [
+        "category"
+      ]
+    },
+    "PersonalPostResponse": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          }
+        }
+      },
+      "title": "PersonalPostResponse",
+      "required": [
+        "post"
+      ]
+    },
+    "Post": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "publisherId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "publisherName": {
+          "type": "string"
+        },
+        "publisherAvatar": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "viewNum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "likeNum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "commentNum": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "postImage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostImage"
+          }
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "title": "Post",
+      "required": [
+        "postId",
+        "publisherId",
+        "publisherName",
+        "publisherAvatar",
+        "category",
+        "content",
+        "viewNum",
+        "likeNum",
+        "commentNum",
+        "postImage",
+        "time"
+      ]
+    },
+    "PostComment": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "publisherId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "publiserName": {
+          "type": "string"
+        },
+        "publisherAvatar": {
+          "type": "string"
+        },
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "commentImage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentImage"
+          }
+        },
+        "content": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "title": "PostComment",
+      "required": [
+        "commentId",
+        "publisherId",
+        "publiserName",
+        "publisherAvatar",
+        "postId",
+        "commentImage",
+        "content",
+        "time"
+      ]
+    },
+    "PostImage": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "imageId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "PostImage",
+      "required": [
+        "postId",
+        "imageId",
+        "url"
+      ]
+    },
+    "PostRequest": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "PostRequest",
+      "required": [
+        "category",
+        "content"
+      ]
+    },
+    "PostResponse": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "$ref": "#/definitions/Post"
+        }
+      },
+      "title": "PostResponse",
+      "required": [
+        "post"
+      ]
+    },
+    "UploadImageRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "imageUrl": {
+          "type": "string"
+        }
+      },
+      "title": "UploadImageRequest",
+      "required": [
+        "postId",
+        "imageUrl"
+      ]
+    },
+    "UploadImageResponse": {
+      "type": "object",
+      "properties": {
+        "postImage": {
+          "$ref": "#/definitions/PostImage"
+        }
+      },
+      "title": "UploadImageResponse",
+      "required": [
+        "postImage"
+      ]
+    },
+    "ViewPostRequest": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ViewPostRequest",
+      "required": [
+        "postId"
+      ]
+    },
+    "ViewPostResponse": {
+      "type": "object",
+      "properties": {
+        "postId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ViewPostResponse",
+      "required": [
+        "postId"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

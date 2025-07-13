@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+message EnterStarRequest{
+  int64 UserId = 1;
+  int64 StarId = 2;
+}
+
+message EnterStarResponse{
+  int64 UserId = 1;
+  string StarName = 2;
+}
+
+message MyStarRequest{
+  int64 UserId = 1;
+}
+
+message MyStarResponse{
+  repeated string Star = 1;
+}
+
+message StarDetailRequest{
+  int64 StarId = 1;
+}
+
+message StarDetailResponse{
+  string Name = 1;
+  int64 People = 2;
+}
+
+message IfEnterRequest{
+  int64 UserId = 1;
+  int64 StarId = 2;
+}
+
+message IfEnterResponse{
+  bool Enter = 1;
+}
+
+service starcenter{
+  rpc enterStar(EnterStarRequest)returns(EnterStarResponse);
+  rpc myStar(MyStarRequest)returns(MyStarResponse);
+  rpc starDetail(StarDetailRequest)returns(StarDetailResponse);
+  rpc ifEnter(IfEnterRequest)returns(IfEnterResponse);
+}

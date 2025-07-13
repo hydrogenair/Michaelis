@@ -1,0 +1,18 @@
+Name: connectioncenter
+Host: 0.0.0.0
+Port: 1009
+
+
+ConnectionRpcConf:
+  Endpoints:
+    - 127.0.0.1:2009
+  NonBlock: true
+
+ChatRpcConf:
+  Endpoints:
+    - 127.0.0.1:2006
+  NonBlock: true
+
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 31536000

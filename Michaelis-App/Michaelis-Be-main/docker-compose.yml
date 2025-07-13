@@ -1,0 +1,192 @@
+version: '3'
+
+services:
+  nginx-lingxi:
+    image: nginx:1.21.5
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8081:80
+    volumes:
+      - ./deploy/nginx/conf.d/LingXi-gateway.conf:/etc/nginx/nginx.conf
+      - ./deploy/nginx/conf.d/log:/var/log/nginx
+    depends_on:
+      - usercenter-api
+      - postcenter-api
+      - imagecenter-api
+      - chatcenter-api
+  etcd:
+    image: quay.io/coreos/etcd
+    command: /usr/local/bin/etcd --name etcd-node --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://etcd:2379
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
+    ports:
+      - 2379:2379
+    depends_on:
+      - usercenter-rpc
+      - commentcenter-rpc
+      - postcenter-rpc
+      - imagecenter-rpc
+      - likecenter-rpc
+
+  usercenter-api:
+    image: wishforpeace/lingxi-usercenter-api:latest
+    container_name: usercenter-api
+    restart: always
+    ports:
+      - 1001:1001
+
+  usercenter-rpc:
+    image: wishforpeace/lingxi-usercenter-rpc:latest
+    container_name: usercenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2001:2001
+    depends_on:
+      - mysql
+      - redis
+      - usercenter-api
+
+  postcenter-api:
+    image: wishforpeace/lingxi-postcenter-api:latest
+    container_name: postcenter-api
+    restart: always
+    ports:
+      - 1003:1003
+
+  postcenter-rpc:
+    image: wishforpeace/lingxi-postcenter-rpc:latest
+    container_name: postcenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2003:2003
+    depends_on:
+      - mysql
+      - redis
+      - postcenter-api
+
+  imagecenter-api:
+    image: wishforpeace/lingxi-imagecenter-api:latest
+    container_name: imagecenter-api
+    restart: always
+    ports:
+      - 1005:1005
+
+  imagecenter-rpc:
+    image: wishforpeace/lingxi-imagecenter-rpc:latest
+    container_name: imagecenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2005:2005
+    depends_on:
+      - mysql
+      - redis
+      - imagecenter-api
+      - commentcenter-rpc
+      - postcenter-api
+
+  commentcenter-rpc:
+    image: wishforpeace/lingxi-commentcenter-rpc:latest
+    container_name: commentcenter-rpc
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2004:2004
+    depends_on:
+      - mysql
+      - redis
+      - postcenter-api
+      - usercenter-rpc
+
+  chatcenter-api:
+    image: wishforpeace/lingxi-chatcenter-api:latest
+    container_name: chatcenter-api
+    restart: always
+    ports:
+      - 1006:1006
+
+  chatcenter-rpc:
+    image: wishforpeace/lingxi-chatcenter-rpc:latest
+    container_name: chatcenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2006:2006
+    depends_on:
+      - mysql
+      - redis
+      - chatcenter-api
+
+  likecenter-rpc:
+    image: wishforpeace/lingxi-likecenter-rpc:latest
+    container_name: likecenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2007:2007
+    depends_on:
+      - mysql
+      - redis
+      - postcenter-api
+
+  starcenter-api:
+    image: wishforpeace/lingxi-starcenter-api:latest
+    container_name: starcenter-api
+    restart: always
+    ports:
+      - 1008:1008
+
+  starcenter-rpc:
+    image: wishforpeace/lingxi-starcenter-rpc:latest
+    container_name: starcenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2008:2008
+    depends_on:
+      - mysql
+      - redis
+      - starcenter-api
+
+  connectioncenter-api:
+    image: wishforpeace/lingxi-connectioncenter-api:latest
+    container_name: connectioncenter-api
+    restart: always
+    ports:
+      - 1009:1009
+
+  connectioncenter-rpc:
+    image: wishforpeace/lingxi-connectioncenter-rpc:latest
+    container_name: connectioncenter-rpc
+    restart: always
+    environment:
+      - ETCD_ENDPOINTS=etcd:2379
+    ports:
+      - 2009:2009
+    depends_on:
+      - mysql
+      - redis
+      - connectioncenter-api
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3308:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root&1234
+      - MYSQL_DATABASE=LingXi
+  redis:
+    image: redis:latest
+    ports:
+      - 6380:6379

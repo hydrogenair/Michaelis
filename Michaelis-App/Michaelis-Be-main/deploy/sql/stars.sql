@@ -1,0 +1,7 @@
+CREATE TABLE `stars`(
+    `id` BIGINT UNSIGNED NOT NULL  AUTO_INCREMENT,
+    `star_name` VARCHAR(255) NOT NULL ,
+    `people_count` INT NOT NULL DEFAULT 0,
+#     `post_count` INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

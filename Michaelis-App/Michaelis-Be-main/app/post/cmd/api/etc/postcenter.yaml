@@ -1,0 +1,30 @@
+Name: postcenter
+Host: 0.0.0.0
+Port: 1003
+
+PostcenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2003
+  NonBlock: true
+
+CommentcenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2004
+  NonBlock: true
+
+ImagecenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2005
+  NonBlock: true
+
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2001
+  NonBlock: true
+
+
+
+
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 31536000

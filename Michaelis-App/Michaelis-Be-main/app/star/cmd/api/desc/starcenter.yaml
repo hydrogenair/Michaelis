@@ -1,0 +1,236 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "星球中心",
+    "description": "心情星球",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "starcenter/v1/star": {
+      "get": {
+        "summary": "查看我加入的星球",
+        "operationId": "getMyStar",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MyStarsResponse"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "stars"
+        ]
+      },
+      "post": {
+        "summary": "加入星球",
+        "operationId": "enterStar",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/EnterResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EnterRequest"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "stars"
+        ]
+      }
+    },
+    "starcenter/v1/star/enter/{starId}": {
+      "get": {
+        "summary": "查看是否加入星球",
+        "operationId": "ifEnterStar",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/IfEnterResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "starId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "stars"
+        ]
+      }
+    },
+    "starcenter/v1/star/{starId}": {
+      "get": {
+        "summary": "查看星球信息",
+        "operationId": "getStarDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/StarDetailResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "starId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "stars"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "EnterRequest": {
+      "type": "object",
+      "properties": {
+        "starId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "EnterRequest",
+      "required": [
+        "starId"
+      ]
+    },
+    "EnterResponse": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "starNam": {
+          "type": "string"
+        }
+      },
+      "title": "EnterResponse",
+      "required": [
+        "userId",
+        "starNam"
+      ]
+    },
+    "IfEnterRequest": {
+      "type": "object",
+      "properties": {
+        "starId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "IfEnterRequest",
+      "required": [
+        "starId"
+      ]
+    },
+    "IfEnterResponse": {
+      "type": "object",
+      "properties": {
+        "enter": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "IfEnterResponse",
+      "required": [
+        "enter"
+      ]
+    },
+    "MyStarsRequest": {
+      "type": "object",
+      "title": "MyStarsRequest"
+    },
+    "MyStarsResponse": {
+      "type": "object",
+      "properties": {
+        "star": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "MyStarsResponse",
+      "required": [
+        "star"
+      ]
+    },
+    "StarDetailRequest": {
+      "type": "object",
+      "properties": {
+        "starId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "StarDetailRequest",
+      "required": [
+        "starId"
+      ]
+    },
+    "StarDetailResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "peopleCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "StarDetailResponse",
+      "required": [
+        "name",
+        "peopleCount"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

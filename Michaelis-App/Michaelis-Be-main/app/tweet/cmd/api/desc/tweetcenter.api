@@ -1,0 +1,29 @@
+syntax = "v1"
+
+info(
+	title: "推文中心"
+	desc: "用户发布推文"
+	author: "Barry"
+	email: "wyx_natural@gmail.com"
+	version: "v1"
+)
+
+import (
+	"tweet/tweet.api"
+)
+
+@server (
+	prefix : tweetcenter/v1
+	group : tweeet
+	jwt : JwtAuth
+)
+
+service tweetcenter{
+	@doc "发送推文"
+	@handler postTweet
+	post /tweet (TweetRequest) returns(TweetResponse)
+
+	@doc "删除推文"
+	@handler deletePosst
+	delete /tweet/:id ()
+}

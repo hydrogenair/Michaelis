@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+
+message Diary{
+  int64 Id =1;
+  int64 PublishedId=2;
+  string Picture1=3;
+  string Picture2=4;
+  string Picture3=5;
+  string Content=6;
+}
+
+message PostDiaryRequest{
+  Diary diary = 1;
+}
+
+message PostDiaryResponse{
+  Diary diary = 1;
+}
+
+service DiaryCenter{
+  rpc post(PostDiaryRequest)returns (PostDiaryResponse);
+}

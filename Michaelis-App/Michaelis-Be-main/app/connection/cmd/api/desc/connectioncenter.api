@@ -1,0 +1,30 @@
+syntax = "v1"
+
+info(
+	title: "联系表"
+	desc: "志愿者与用户关联"
+	author: "Barry"
+	email: "wyxnatural@gmail.com"
+	version: "v1"
+)
+
+import (
+	"connection/connection.api"
+)
+
+@server (
+	prefix : connectioncenter/v1
+	group : connection
+	jwt : JwtAuth
+)
+
+service connectioncenter{
+	@doc "添加联系"
+	@handler addConnection
+	post /add (AddConnectionRequest)returns(AddConnectionResponse)
+	
+	@doc "查看联系人"
+	@handler checkConnection
+	get /check (GetConnectionRequest)returns(GetConnectionResponse)
+	
+}

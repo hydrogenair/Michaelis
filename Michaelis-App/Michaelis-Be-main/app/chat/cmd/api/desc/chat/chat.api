@@ -1,0 +1,38 @@
+syntax = "v1"
+
+info(
+	title: "用户通讯"
+	desc: "用户通讯"
+	author: "Barry"
+	email: "wyx_natural@gmail.com"
+	version: "1.0"
+)
+type  Message{
+	Id int64 `json:"id"`
+	ReceiverId int64 `json:"receiverId"`
+	SenderId int64 `json:"senderId"`
+	Type string `json:"type"`
+	Content string `json:"content"`
+	Time string `json:"time"`
+}
+type (
+	SocketReq {
+		Id int64 `path:id`
+	}
+	SocketResp {
+	}
+)
+
+
+
+type (
+	GetMessageRequest{
+		ReceiverId int64 `path:"receiverId"`
+	}
+
+	GetMessageResponse{
+		Message[] Message `json:"message"`
+	}
+)
+
+

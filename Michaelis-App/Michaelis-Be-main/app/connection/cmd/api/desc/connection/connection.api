@@ -1,0 +1,46 @@
+syntax = "v1"
+
+info(
+    title: "联系表"
+    desc: "志愿者与用户关联"
+    author: "Barry"
+    email: "wyxnatural@gmail.com"
+    version: "v1"
+)
+type UserInfo{
+    UserId int64 `json:"userId"`
+    UserName string    `json:"userName"`
+    Avatar string `json:"avatar"`
+    LastMessage LastMessage `json:"lastMessage"`
+}
+type LastMessage{
+    Content string `json:"content"`
+    Type string `json:"type"`
+    Time string `json:"time"`
+}
+
+type Connection{
+    VolunteerId int64 `json:"volunteerId"`
+    UserId int64 `json:"userId"`
+}
+
+type AddConnectionRequest{
+    UserId int64 `json:"userId"`
+}
+
+type AddConnectionResponse{
+    Connection Connection `json:"connection"`
+}
+
+
+type GetConnectionRequest{
+
+}
+
+type GetConnectionResponse{
+   UserInfo []UserInfo `json:"userInfo"`
+}
+//
+//type DeleteConnectionRequest{
+//    Id int64   `json:"id"`
+//}

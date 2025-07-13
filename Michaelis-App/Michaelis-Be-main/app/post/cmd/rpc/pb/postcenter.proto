@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+message Post {
+  int64 PostId = 1;
+  int64 PublisherId = 2;
+  string Content = 3;
+  string Category = 4;
+  int64 ViewNum = 5;
+  int64 LikeNum = 6;
+  int64 CommentNum = 7;
+  string Time = 8;
+}
+
+
+message PostRequest{
+  int64 PublisherId = 1;
+  string Content = 2;
+  string Category = 3;
+}
+
+message PostResponse{
+  Post post = 1;
+}
+
+
+message GetPostDetailRequest{
+  int64 PostId = 1;
+}
+
+message GetPostDetailResponse{
+  Post post = 1;
+}
+
+message GetSomeonePostRequest{
+  int64   PublisherId =1;
+  string Category = 2;
+}
+
+message GetSomeonePostResponse{
+  repeated Post post = 1;
+}
+
+message DeletePostRequest{
+  int64 PublisherId= 1;
+  int64 PostId = 2;
+}
+
+message DeletePostResponse{
+  int64 PostId = 1;
+}
+
+message CommentPostRequest{
+  int64 PostId = 1;
+}
+
+message CommentPostResponse{
+  int64 PostId = 1;
+}
+
+message ViewPostRequest{
+  int64 PostId = 1;
+}
+
+message ViewPostResponse{
+  int64 PostId = 1;
+}
+
+message LikePostRequest{
+  int64 UserId = 1;
+  int64 PostId = 2;
+}
+
+message LikePostResponse{
+  int64 PostId = 1;
+}
+
+message CancelRequest{
+  int64 UserId = 1;
+  int64 PostId = 2;
+}
+
+message CancelResponse{
+  int64 PostId = 1;
+}
+
+message IfLikeRequest{
+  int64 UserId = 1;
+  int64 PostId = 2;
+}
+
+message IfLikeResponse{
+  bool Like = 1;
+}
+
+service PostCenter{
+  rpc sendPost(PostRequest)returns(PostResponse);
+  rpc getPostDetail(GetPostDetailRequest)returns(GetPostDetailResponse);
+  rpc getSomeonePost(GetSomeonePostRequest)returns(GetSomeonePostResponse);
+  rpc deletePost(DeletePostRequest)returns(DeletePostResponse);
+  rpc commentPost(CommentPostRequest)returns(CommentPostResponse);
+  rpc viewPost(ViewPostRequest)returns(ViewPostResponse);
+  rpc likePost(LikePostRequest)returns(LikePostResponse);
+  rpc cancelLike(CancelRequest)returns(CancelResponse);
+  rpc ifLike(IfLikeRequest)returns(IfLikeResponse);
+}

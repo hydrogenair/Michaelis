@@ -1,0 +1,12 @@
+syntax = "v1"
+
+info(
+    title: "日志中心"
+    desc: "用户心情日志"
+    author: "Barry"
+    email: "wyxnatural@gmail.com"
+    version: "type version here"
+)
+
+
+

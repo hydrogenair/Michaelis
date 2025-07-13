@@ -1,0 +1,41 @@
+Name: connectioncenter.rpc
+ListenOn: 0.0.0.0:2009
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: connectioncenter.rpc
+
+JwtAuth:
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505da0
+  AccessExpire: 31536000
+
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2001
+  NonBlock: true
+
+ImagecenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2005
+  NonBlock: true
+
+Mysql:
+  Path: 127.0.0.1
+  Port: 3306
+  Dbname: LingXi
+  Username: root
+  Password: root&1234
+  MaxIdleConns: 10
+  MaxOpenConns: 10
+  LogMode: "dev"
+  LogZap: false
+  Config: charset=utf8mb4&parseTime=True&loc=Local
+
+Cache:
+  - Host: 127.0.0.1:6379
+    Pass:
+
+Redis:
+  Host: 127.0.0.1:6379
+  Type: node
+  Pass:

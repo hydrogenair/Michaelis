@@ -1,0 +1,11 @@
+CREATE TABLE `comments`(
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `publisher_id` BIGINT UNSIGNED NOT NULL ,
+    `type` VARCHAR(255) NOT NULL  DEFAULT '',
+    `content` TEXT NOT NULL ,
+    `like_num` INT NOT NULL DEFAULT 0,
+    `reply_num` INT NOT NULL DEFAULT 0,
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `out_id` BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (`id`)
+)ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

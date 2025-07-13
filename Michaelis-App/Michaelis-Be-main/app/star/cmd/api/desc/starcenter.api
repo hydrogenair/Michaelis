@@ -1,0 +1,36 @@
+syntax = "v1"
+
+info(
+	title: "星球中心"
+	desc: "心情星球"
+	author: "Barry"
+	email: "wyxnatural@gmail.com"
+	version: "v1"
+)
+import (
+	"star/star.api"
+)
+
+@server (
+	prefix : starcenter/v1
+	group : stars
+	jwt : JwtAuth
+)
+
+service starcenter{
+	@doc "加入星球"
+	@handler enterStar
+	post /star (EnterRequest)returns(EnterResponse)
+	
+	@doc "查看我加入的星球"
+	@handler getMyStar
+	get /star (MyStarsRequest)returns(MyStarsResponse)
+	
+	@doc "查看星球信息"
+	@handler getStarDetail
+	get /star/:starId (StarDetailRequest)returns(StarDetailResponse)
+	
+	@doc "查看是否加入星球"
+	@handler ifEnterStar
+	get /star/enter/:starId (IfEnterRequest)returns(IfEnterResponse)
+}

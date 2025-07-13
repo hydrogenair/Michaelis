@@ -1,0 +1,49 @@
+syntax = "v1"
+
+info(
+    title: "推文中心"
+    desc: "用户发布推文"
+    author: "Barry"
+    email: "wyx_natural@gmail.com"
+    version: "v1"
+)
+
+
+type Tweet{
+    Id int64          `json:"id"`
+    PublisherId int64 `json:"publisherId"`
+    Content string `json:"content"`
+}
+
+type TweetImage{
+    Id int64 `json:"id"`
+    TweetId int64 `json:"tweetId"`
+    Url string `json:"url"`
+}
+
+
+type (
+    TweetRequest{
+        Content string `json:"content"`
+    }
+    TweetResponse{
+        Tweet Tweet   `json:"tweet.sql"`
+    }
+)
+
+
+type (
+    DeleteTweetRequest{
+        Id int64  `path:"id"`
+    }
+    DeleteTweetResponse{
+        Id int64 `json:"id"`
+    }
+)
+
+type (
+    GetTweetsRequest{
+
+    }
+)
+

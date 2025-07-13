@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+message UserInfo{
+  int64  UserId = 1;
+  string UserName = 2;
+  string Avatar = 3;
+}
+
+message AddConnectionRequest{
+  int64 UserId = 1;
+  int64 VolunteerId = 2;
+}
+
+message AddConnectionResponse{
+  int64 VolunteerId = 1;
+  int64 UserId = 2;
+}
+
+message CheckConnectionRequest{
+  int64 UserId = 1;
+}
+
+message CheckConnectionResponse{
+  repeated UserInfo info =1;
+}
+
+service connectioncenter{
+  rpc addConnection(AddConnectionRequest)returns(AddConnectionResponse);
+  rpc checkConnection(CheckConnectionRequest)returns(CheckConnectionResponse);
+}

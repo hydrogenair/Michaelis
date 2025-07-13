@@ -1,0 +1,37 @@
+syntax = "v1"
+
+info(
+	title: "用户通讯"
+	desc: "用户通讯"
+	author: "Barry"
+	email: "wyx_natural@gmail.com"
+	version: "1.0"
+)
+import (
+	"chat/chat.api"
+)
+
+@server (
+	prefix :chatcenter/v1
+	group: chat
+
+)
+
+service chat{
+	@doc "建立通信"
+	@handler chat
+	get /chat/ws/:id (SocketReq) returns (SocketResp)
+}
+
+@server (
+	prefix :chatcenter/v1
+    group: chat
+    jwt : JwtAuth
+)
+
+
+service chat{
+	@doc "获取历史消息"
+	@handler getMessage
+	get /chat/msg/:receiverId (GetMessageRequest)returns(GetMessageResponse)
+}

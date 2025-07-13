@@ -1,0 +1,150 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "用户通讯",
+    "description": "用户通讯",
+    "version": "1.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "chatcenter/v1/chat/ws": {
+      "get": {
+        "summary": "建立通信",
+        "operationId": "chat",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SocketResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "chat"
+        ]
+      }
+    },
+    "chatcenter/v1/chat/{receiverId}": {
+      "get": {
+        "summary": "获取历史消息",
+        "operationId": "getMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "receiverId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "chat"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GetMessageRequest": {
+      "type": "object",
+      "properties": {
+        "receiverId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetMessageRequest",
+      "required": [
+        "receiverId"
+      ]
+    },
+    "GetMessageResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Message"
+          }
+        }
+      },
+      "title": "GetMessageResponse",
+      "required": [
+        "message"
+      ]
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiverId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "senderId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      },
+      "title": "Message",
+      "required": [
+        "id",
+        "receiverId",
+        "senderId",
+        "type",
+        "content",
+        "time"
+      ]
+    },
+    "SocketReq": {
+      "type": "object",
+      "title": "SocketReq"
+    },
+    "SocketResp": {
+      "type": "object",
+      "title": "SocketResp"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

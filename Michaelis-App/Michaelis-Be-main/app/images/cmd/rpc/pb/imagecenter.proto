@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+message Image{
+  int64 Id = 1;
+  string Type = 2;
+  int64 OutId = 3;
+  string Url = 4;
+}
+
+message PostImageRequest{
+  string Type = 1;
+  int64 OutId = 2;
+  string Url = 3;
+}
+
+message PostImageResponse{
+  Image image = 1;
+}
+
+message GetAllImagesRequest{
+  string Type = 1;
+  int64 OutId = 2;
+}
+
+message GetAllImagesResponse{
+  repeated Image images =1;
+}
+
+message GetOneImageRequest{
+  string Type = 1;
+  int64 OutId = 2;
+}
+
+message GetOneImageResponse{
+  Image image =1;
+}
+
+message GetDetailRequest{
+  int64 Id = 1;
+}
+
+message GetDetailResponse{
+  Image images = 1;
+}
+
+message DeleteImageRequest{
+  int64 Id = 1;
+}
+message DeleteImageResponse{
+  int64 Id = 1;
+}
+
+
+service ImageCenter{
+  rpc postImage(PostImageRequest)returns(PostImageResponse);
+  rpc getAllImages(GetAllImagesRequest)returns(GetAllImagesResponse);
+  rpc getDetail(GetDetailRequest)returns(GetDetailResponse);
+  rpc deleteImage(DeleteImageRequest)returns(DeleteImageResponse);
+  rpc getOneImage(GetOneImageRequest)returns(GetOneImageResponse);
+}

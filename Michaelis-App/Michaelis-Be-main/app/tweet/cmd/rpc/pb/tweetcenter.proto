@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+package pb;
+
+message Tweet{
+  int64  Id = 1;
+  int64 PublisherId = 2;
+  string Content = 3;
+}
+
+message TweetRequest {
+  int64 Id = 1;
+  string Content  = 2;
+}
+
+message TweetResponse{
+  Tweet tweet  = 1;
+}
+
+service TweetCenter{
+  rpc postTweet(TweetRequest)returns (TweetResponse);
+}

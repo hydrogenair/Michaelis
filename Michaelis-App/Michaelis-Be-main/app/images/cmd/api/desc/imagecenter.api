@@ -1,0 +1,37 @@
+syntax = "v1"
+
+info(
+	title: "图片服务"
+	desc: "所有的图片操作"
+	author: "Barry"
+	email: "wyx_natural@gmail.com"
+	version: "v1"
+)
+
+import (
+	"image/image.api"
+)
+
+@server(
+	prefix : imagecenter/v1
+	group :image
+)
+
+service imagecenter{
+	@doc "发布图片"
+	@handler uploadImage
+	post /image (UploadImageRequest)returns(UploadImageResponse)
+	
+	@doc "获取某类的全部图片"
+	@handler getAllImages
+	get  /image/:type/:outid (GetAllImagesRequest)returns(GetAllImagesResponse)
+	
+	@doc "获取某个图片的详细信息"
+	@handler getImageDetail
+	get /image/:id (GetImageDetailRequest) returns(GetImageDetailResponse)
+	
+	@doc "删除某个图片"
+	@handler deleteImage
+	delete /image/:id (DeleteImageRequest)returns(DeleteImageReponse)
+	
+}

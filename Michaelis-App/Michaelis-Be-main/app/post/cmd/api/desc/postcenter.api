@@ -1,0 +1,74 @@
+syntax = "v1"
+
+info(
+	title: "发帖中心"
+	desc: "星球中的用户帖子"
+	author: "Barry"
+	email: "wyxnatural@gmail.com"
+	version: "v1"
+)
+
+import (
+	"post/post.api"
+)
+
+@server (
+	prefix : postcenter/v1
+	group : posts
+	jwt : JwtAuth
+)
+
+service postcenter{
+	@doc "发布帖子"
+	@handler publishPost
+	post /post (PostRequest)returns (PostResponse)
+	
+	@doc "查看某人发布所有的帖子"
+	@handler getPost
+	get /all_post (GetPostRequest)returns(GetPostResponse)
+	
+	@doc "查看某话题下的所有帖子"
+	@handler getCategoryPost
+	get /post/:category (GetCategoryPostRequest)returns(GetCategoryPostResponse)
+	
+	@doc "获取某人某个话题下发布的帖子"
+	@handler getPersonalCategoryPost
+	get /post/personal/:category ( PersonalPostRequest)returns(PersonalPostResponse)
+	
+	@doc "获取某个帖子的详细"
+	@handler getPostDetails
+	get /post/detail/:postId (GetDetailRequest)returns(GetDetailResponse)
+	
+	@doc "删除帖子"
+	@handler deletePost
+	delete /post/:postId (DeletePostRequest)returns(DeletePostResponse)
+	
+	@doc "评论帖子"
+	@handler commentPost
+	post /post/comment (CommentPostRequest)returns(CommentPostResponse)
+	
+	@doc "获取帖子的评论"
+	@handler getPostComments
+	get /post/comment/:postId (GetCommentsRequst)returns(GetCommentsResponse)
+	
+	@doc "删除帖子的评论"
+	@handler deletePostComments
+	delete /post/comment/:commentId (DeleteCommentRequest)returns(DeleteCommentResponse)
+	
+	@doc "帖子浏览量+1"
+	@handler viewPost
+	post /post/view (ViewPostRequest)returns(ViewPostResponse)
+	
+	@doc "帖子点赞"
+	@handler likePost
+	post /post/like (LikePostRequest)returns(LikePostResponse)
+	
+	@doc "取消点赞"
+	@handler cancelLike
+	delete /post/like (CancelLikeRequest)returns(CancelLikeResponse)
+	
+	@doc "查看是否点赞"
+	@handler  ifLike
+	get /post/like/:postId (IfLikeRequest)returns(IfLikeResponse)
+	
+}

@@ -1,0 +1,56 @@
+syntax = "v1"
+
+info(
+    title: "图片服务"
+    desc: "所有的图片操作"
+    author: "Barry"
+    email: "wyx_natural@gmail.com"
+    version: "v1"
+)
+
+
+type Image{
+    Id int64 `json:"id"`
+    Type string `json:"type"`
+    OutId int64 `json:"outId"`
+    Url string `json:"url"`
+}
+
+type (
+    UploadImageRequest{
+        Type string `json:"type"`
+        OutId int64 `json:"outId"`
+        Url string `json:"url"`
+    }
+    UploadImageResponse{
+        Image Image `json:"image"`
+    }
+)
+
+type (
+    GetAllImagesRequest{
+        Type string `path:"type"`
+        OutId int64 `path:"outId"`
+    }
+    GetAllImagesResponse{
+       Images[] Image `json:"image"`
+    }
+)
+
+type (
+    GetImageDetailRequest{
+        Id int64 `path:"id"`
+    }
+    GetImageDetailResponse{
+        Image Image `json:"image"`
+    }
+)
+
+type (
+    DeleteImageRequest{
+        Id int64 `path:"id"`
+    }
+    DeleteImageReponse{
+        Id int64   `json:"id"`
+    }
+)

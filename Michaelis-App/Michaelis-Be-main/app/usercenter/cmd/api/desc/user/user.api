@@ -1,0 +1,95 @@
+syntax = "v1"
+
+info(
+    title: "用户实例"
+    desc: "用户实例"
+    author: "Barry"
+    email: "1903180340@qq.com"
+)
+
+
+type User{
+    Id int64 `json:"id"`
+    Email string `json:"email"`
+    NickName string `json:"nickname"`
+    Gender string `json:"gender"`
+    Age int64 `json:"age"`
+    Identity int64 `json:"identity"`
+}
+
+type (
+    RegisterReq {
+        Email             string            `json:"email"`
+        Password          string            `json:"password"`
+        VerificationCode  string            `json:"verification_code"`
+    }
+    RegisterResp{
+        AccessToken  string  `json:"accessToken"`
+        AccessExpire int64   `json:"accessExpire"`
+        RefreshAfter int64   `json:"refreshAfter"`
+    }
+
+)
+
+type (
+    VerificationReq{
+        Email string `json:"email"`
+    }
+    VerfificationResp{
+        VerficationCode string `json:"verfication_code"`
+    }
+)
+
+type (
+    LoginReq{
+        Email string   `json:"email"`
+        Password string `json:"password"`
+    }
+    LoginResp{
+        AccessToken  string `json:"accessToken"`
+        AccessExpire int64 `json:"accessExpire"`
+        RefreshAfter int64 `json:"refreshAfter"`
+    }
+)
+
+
+type (
+    UpdateInfoReq{
+       NickName    string   `json:"nickname"`
+       Gender      string   `json:"gender"`
+       Age         int64    `json:"age"`
+    }
+    UpdateInfoResp{
+       UserInfo    User      `json:"userInfo"`
+    }
+)
+
+type (
+    UserInfoReq{
+    }
+    UserInfoResp{
+       UserInfo User `json:"userInfo"`
+    }
+)
+
+
+type (
+    UpdatePSWReq{
+        OldPassword  string  `json:"old_password"`
+        NewPassword  string  `json:"new_password"`
+        VerficationCode string `json:"verification_code"`
+    }
+    UpdatePSWResp{
+
+    }
+)
+
+
+type (
+    UpdateIdentityReq{
+        Id int64 `json:"id"`
+    }
+    UpdateIdentityResp{
+        User User `json:"user"`
+    }
+)
